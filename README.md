@@ -1,5 +1,4 @@
-# Desafio de la clase 41 - Módulos de testing 
-
+# Desafio de la clase 44 - Practica de Integración
 ### Alumno: Pablo Galeano
 
 ### Profesor: Gonzalo Fernández
@@ -12,9 +11,17 @@
 
 #### What's New
 
-* Se crearon 3 Tests de cada Router(session, carts y products)
+* Se modificó el modelo de User para agregar la propiedad "Documents" y "last_connection"
 
-* Se hicieron los test propuestos.
+* Se modificó el middleware de Multer para que discrimine entre los distintos archivos que el usuario puede subir.
+
+* Se agregó el endpoint /appi/users/:uid/documents
+
+* El usuario no puede ser premium si no antes haber subido los 3 documentos solicitados.
+
+* Se hicieron los test propuestos(Utilizar Thunder Client).
+
+* ir al final de este documento para ver como realizar la prueba
 ------------------------------------------------------
 #### Bibliotecas
 
@@ -124,6 +131,7 @@ npm install -D supertest
 
 ##
 * Para correr  la aplicación en modo desarrollador se debe escribir en la terminal:
+```
 npm run dev 
 ```
 * Para correr  la aplicación en modo produccion se debe escribir en la terminal:
@@ -155,3 +163,29 @@ Se esuchará por el puerto 8080, con lo cual se puede interactuar con la app a t
 Tener en cuenta que para probar con el formulario en realtimeproducts se deben llenar todos los campos
 
 Los puts,update y delete tambien se pueden hacer con ThunderClient. Los POST no debido a que no deja enviar files desde el modo form-encoded, por lo tanto, multer no recibe la imagen y nos arroja error.
+
+##
+
+### Realizar Test
+
+#### Prueba de user/premium
+1. Abrir Thunder Cliente y apuntar a la siguiente URL con PUT : http://localhost:8080/api/users/premium/65728905659928a8f4dd9057
+
+el userid corresponde un usuario de la DB
+
+no debería dejar cambiar el usuario a premium
+
+
+2. Abrir Thunder Client y apuntar la URL a: http://localhost:8080/api/users/65728905659928a8f4dd9057/documents
+
+3. En el tab Form ir a Files y colocar los campos:
+* idDoc (*)
+* addressDoc (*)
+* accountStatus (*)
+* profilePic
+
+Subir las imagenes o archivos.
+
+(*) Obligatorios para premium
+
+4. Repetir el paso 1
